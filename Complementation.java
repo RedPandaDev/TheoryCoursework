@@ -17,7 +17,8 @@ public class Complementation {
 	}
 
 	public static void readLines(String filename)
-    {
+    {   
+        System.out.println("DFA encoding file: "+filename);
         File file = new File(filename);
 
         try
