@@ -4,18 +4,17 @@ import java.io.*;
 public class Complementation {
 
 	// Code that runs when program is started
-	public static void main(String [] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 
+        // Makes sure user specified text file to be used
 		if (args.length != 1) 
         {
         	System.out.println("ERROR: Please specify TEXT file to be used.");
         	System.out.println("E.g. type in: java Complementation \"D1.txt\" ");
-        	System.exit(-1);
         }
 		readLines(args[0]);
 
 	}
-
 
 	public static void readLines(String filename)
     {
