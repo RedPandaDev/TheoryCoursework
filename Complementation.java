@@ -18,15 +18,50 @@ public class Complementation {
 
 	public static void readLines(String filename)
     {   
-        System.out.println("DFA encoding file: "+filename);
+        System.out.println("DFA that recognises L(M): "+filename);
         File file = new File(filename);
-
+        int lineNum = 0;
+        String allStates = "";
         try
         {
 	        Scanner scan = new Scanner(file);
 	        while(scan.hasNextLine()){
+                // line 2 is states
+                // last line accept state
+                lineNum++;
+
 	        	String line = scan.nextLine();
-	        	System.out.println(line);
+
+                if (lineNum == 2){
+                    allStates = line;
+                }
+
+                if (scan.hasNextLine()){
+	        	  System.out.println(line);
+                }
+                else{
+
+                    String[] allStatesArray = allStates.split("\\s+");
+                    String[] acceptStateArray = line.split("\\s+");
+
+                    HashSet<String> allStatesSet = new HashSet<String>();
+                    for(String i: allStatesArray){
+                        allStatesSet.add(i);
+                    }
+                 
+                    for(String i: acceptStateArray){
+                        if(allStatesSet.contains(i)){
+                            allStatesSet.remove(i);
+                        }
+                    }
+                 
+                    String[] result = new String[allStatesSet.size()];
+                    int i=0;
+                    for(String n: allStatesSet){
+                        System.out.print(n+" ");
+                    }
+                    
+                }
 	        }            
 
         }
