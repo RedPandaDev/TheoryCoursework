@@ -11,6 +11,7 @@ public class Complementation {
         {
         	System.out.println("ERROR: Please specify TEXT file to be used.");
         	System.out.println("E.g. type in: java Complementation \"D1.txt\" ");
+            System.exit(0);
         }
 		readLines(args[0]);
 
