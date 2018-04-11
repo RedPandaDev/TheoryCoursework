@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.nio.file.*;
 
 public class Complementation {
 
@@ -25,6 +26,9 @@ public class Complementation {
         String allStates = "";
         try
         {
+        	Path path = Paths.get(filename);
+			long totalLines = Files.lines(path).count() ;
+
 	        Scanner scan = new Scanner(file);
 	        while(scan.hasNextLine()){
                 // line 2 is states
@@ -37,10 +41,9 @@ public class Complementation {
                     allStates = line;
                 }
 
-                if (scan.hasNextLine()){
-	        	  System.out.println(line);
-                }
-                else{
+                if (lineNum == totalLines-1){
+
+                	line = scan.nextLine();
 
                     String[] allStatesArray = allStates.split("\\s+");
                     String[] acceptStateArray = line.split("\\s+");
@@ -58,10 +61,14 @@ public class Complementation {
                  
                     String[] result = new String[allStatesSet.size()];
                     int i=0;
+                    System.out.println(allStatesSet.size());
                     for(String n: allStatesSet){
                         System.out.print(n+" ");
                     }
                     
+                }
+                else{
+                	System.out.println(line);
                 }
 	        }            
 
