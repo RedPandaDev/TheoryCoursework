@@ -27,7 +27,6 @@ public class Intersection {
         firstFile = readLines(filename1);
         secondFile = readLines(filename2);
 
-        System.out.println("DFA that recognises L("+filename1+") \u2229 L("+filename2+"):");
         //System.out.println(firstFile+"\n"+secondFile);
         try{
             int numStates = Integer.valueOf(firstFile.get(1)) * Integer.valueOf(secondFile.get(1));
@@ -35,28 +34,74 @@ public class Intersection {
             intersectionDFA.add(String.valueOf(numStates));
             // State names
                 // -----------
+            String[] file1States = firstFile.get(2).split("\\s+");
+            String[] file2States = secondFile.get(2).split("\\s+");
+
+            String allStates = "";
+
+            for(String i: file1States){
+                for(String j: file2States){
+                    allStates = allStates + i + ""+j +" ";
+                }
+            }
+            intersectionDFA.add(allStates);
+
             // size of alphabet = 2
                 // ----------
+            intersectionDFA.add("2");
             // alphabet = a b 
                 // -----------
+            intersectionDFA.add("a b");
             // Transitions
                 // -----------
+            int linesFirstF = Integer.valueOf(firstFile.get(0));
+            int linesSecondF = Integer.valueOf(secondFile.get(0));
+
+            for (int transitionsF1 = 5; transitionsF1 < (linesFirstF-2); transitionsF1++ ){
+                String[] oneTransition = firstFile.get(transitionsF1).split("\\s+");
+
+                for (int transitionsF2 = 5; transitionsF2 < (linesSecondF-2); transitionsF2++ ){
+                    String[] twoTransition = secondFile.get(transitionsF2).split("\\s+");
+                    intersectionDFA.add(oneTransition[0]+twoTransition[0] + " " + oneTransition[1]+twoTransition[1]);
+                }
+            }
             // Start state
                 // -----------
+            intersectionDFA.add(firstFile.get(linesFirstF-2)+secondFile.get(linesSecondF-2));
+
             // Number of final states
                 // -----------
+            int numFinalStates = Integer.valueOf(firstFile.get(linesFirstF-1)) * Integer.valueOf(secondFile.get(linesSecondF-1));
+            intersectionDFA.add(String.valueOf(numFinalStates));
+
             // Final states
                 // -----------
-            System.out.println(numStates);
+            String[] oneFinal= firstFile.get(linesFirstF).split("\\s+");
+            String[] twoFinal = secondFile.get(linesSecondF).split("\\s+");
+            String allFinalStates = "";
+            for (String finalState1: oneFinal){
+                 for (String finalState2: twoFinal){
+                    allFinalStates = allFinalStates + finalState1+finalState2+" ";
+                    
+                }
+            }
+
+            intersectionDFA.add(allFinalStates);
+            printArray(filename1, filename2, intersectionDFA);
+            
 
         }catch(Exception e){
             System.out.println("Check the file provided is correct");
 
         }
         
+    }
 
-
-
+    private static void printArray (String filename1, String filename2, ArrayList<String> intersect){
+        System.out.println("DFA that recognises L("+filename1+") \u2229 L("+filename2+"):");
+        for(String arrayLine: intersect.subList(1, intersect.size())){
+            System.out.println(arrayLine);
+        }
     }
 
 
