@@ -27,7 +27,7 @@ public class Complementation {
         try
         {
         	Path path = Paths.get(filename);
-			long totalLines = Files.lines(path).count() ;
+			long totalLines = Files.lines(path).count();
 
 	        Scanner scan = new Scanner(file);
 	        while(scan.hasNextLine()){

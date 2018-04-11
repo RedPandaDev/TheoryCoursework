@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.nio.file.*;
 
 public class Intersection {
 
@@ -25,8 +26,12 @@ public class Intersection {
         int lineNum = 0;
         String allStates = "";
         try
-        {
+        {   
+            Path path = Paths.get(filename);
+            long totalLines = Files.lines(path).count();
+            
 	        Scanner scan = new Scanner(file);
+
 	        while(scan.hasNextLine()){
 
 	        	String line = scan.nextLine();
