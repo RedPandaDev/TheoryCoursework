@@ -3,7 +3,7 @@ Ax Ay Az Bx By Bz
 2
 a b
 By Ax
-Bx Ax
+Bz Ax
 Bx Az
 Ay Bx
 Az Bx

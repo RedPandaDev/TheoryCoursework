@@ -14,14 +14,57 @@ public class Intersection {
         	System.out.println("E.g. type in: java Intersection \"D1.txt\" \"D2.txt\"");
             System.exit(0);
         }
-		readLines(args[0]);
-        readLines(args[1]);
+        makeIntersection(args[0], args[1]);
+        
 
 	}
 
-	public static void readLines(String filename)
+    private static void makeIntersection(String filename1, String filename2){
+        ArrayList<String> firstFile = new ArrayList<String>();
+        ArrayList<String> secondFile = new ArrayList<String>();
+        ArrayList<String> intersectionDFA = new ArrayList<String>();
+
+        firstFile = readLines(filename1);
+        secondFile = readLines(filename2);
+
+        System.out.println("DFA that recognises L("+filename1+") \u2229 L("+filename2+"):");
+        //System.out.println(firstFile+"\n"+secondFile);
+        try{
+            int numStates = Integer.valueOf(firstFile.get(1)) * Integer.valueOf(secondFile.get(1));
+            // Number of states:
+            intersectionDFA.add(String.valueOf(numStates));
+            // State names
+                // -----------
+            // size of alphabet = 2
+                // ----------
+            // alphabet = a b 
+                // -----------
+            // Transitions
+                // -----------
+            // Start state
+                // -----------
+            // Number of final states
+                // -----------
+            // Final states
+                // -----------
+            System.out.println(numStates);
+
+        }catch(Exception e){
+            System.out.println("Check the file provided is correct");
+
+        }
+        
+
+
+
+    }
+
+
+
+	private static ArrayList<String> readLines(String filename)
     {   
-        System.out.println("DFA: "+filename);
+        ArrayList<String> fileInArray = new ArrayList<String>();
+
         File file = new File(filename);
         int lineNum = 0;
         String allStates = "";
@@ -29,14 +72,15 @@ public class Intersection {
         {   
             Path path = Paths.get(filename);
             long totalLines = Files.lines(path).count();
+            fileInArray.add(String.valueOf(totalLines));
+            // Make array list of lists to save each line and number of lines. 
             
 	        Scanner scan = new Scanner(file);
 
 	        while(scan.hasNextLine()){
 
 	        	String line = scan.nextLine();
-
-	        	System.out.println(line);
+                fileInArray.add(line);
 
 	        }            
 
@@ -44,6 +88,7 @@ public class Intersection {
         catch (Exception e) {
             e.printStackTrace();
         }
+        return fileInArray;
     }
 
 }
