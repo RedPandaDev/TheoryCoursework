@@ -20,19 +20,118 @@ public class Symmetric {
         fileOne = readLines(args[0]);
         fileTwo = readLines(args[1]);
 
-        ArrayList<String> complement1 = new ArrayList<String>();
-        ArrayList<String> complement2 = new ArrayList<String>();
+        ArrayList<String> complementOne = new ArrayList<String>();
+        ArrayList<String> complementTwo = new ArrayList<String>();
 
-        complement1 = makeComplementation(args[0]);
-        complement2 = makeComplementation(args[1]);
+        complementOne = makeComplementation(args[0]);
+        complementTwo = makeComplementation(args[1]);
 
-        printArray("D1","D2", fileTwo);
-        printArray("D1","D2", complement2);
+        ArrayList<String> intersectOne = new ArrayList<String>();
+        ArrayList<String> intersectTwo = new ArrayList<String>();
 
-        makeIntersection(fileOne, fileTwo);
+        intersectOne = makeIntersection(complementOne, fileTwo);
+        intersectTwo = makeIntersection(fileOne, complementTwo);
+
+        // make union of intersectOne - intersectTwo
+        ArrayList<String> finalDFA = new ArrayList<String>();
+        finalDFA = makeUnion(intersectOne, intersectTwo);
+        printArray(args[0],args[1],finalDFA);
         
 
 	}
+    private static ArrayList<String> makeUnion(ArrayList<String> firstFile, ArrayList<String> secondFile){
+        ArrayList<String> unionDFA = new ArrayList<String>();
+
+
+        //System.out.println(firstFile+"\n"+secondFile);
+        try{
+            int numStates = Integer.valueOf(firstFile.get(1)) * Integer.valueOf(secondFile.get(1));
+            // Number of states:
+            unionDFA.add(String.valueOf(numStates));
+            // State names
+                // -----------
+            String[] file1States = firstFile.get(2).split("\\s+");
+            String[] file2States = secondFile.get(2).split("\\s+");
+
+            String allStates = "";
+
+            for(String i: file1States){
+                for(String j: file2States){
+                    allStates = allStates + i + ""+j +" ";
+                }
+            }
+            unionDFA.add(allStates);
+
+            // size of alphabet = 2
+                // ----------
+            unionDFA.add("2");
+            // alphabet = a b 
+                // -----------
+            unionDFA.add("a b");
+            // Transitions
+                // -----------
+            int linesFirstF = Integer.valueOf(firstFile.get(0));
+            int linesSecondF = Integer.valueOf(secondFile.get(0));
+
+            for (int transitionsF1 = 5; transitionsF1 < (linesFirstF-2); transitionsF1++ ){
+                String[] oneTransition = firstFile.get(transitionsF1).split("\\s+");
+
+                for (int transitionsF2 = 5; transitionsF2 < (linesSecondF-2); transitionsF2++ ){
+                    String[] twoTransition = secondFile.get(transitionsF2).split("\\s+");
+                    unionDFA.add(oneTransition[0]+twoTransition[0] + " " + oneTransition[1]+twoTransition[1]);
+                }
+            }
+            // Start state
+                // -----------
+            unionDFA.add(firstFile.get(linesFirstF-2)+secondFile.get(linesSecondF-2));
+
+            // Number of final states
+                // -----------
+            
+
+            // Final states
+                // -----------
+            String[] oneFinal= firstFile.get(linesFirstF).split("\\s+");
+            String[] oneAll= firstFile.get(2).split("\\s+");
+            String[] twoFinal = secondFile.get(linesSecondF).split("\\s+");
+            String[] twoAll = secondFile.get(2).split("\\s+");
+
+            TreeSet<String> allFinalStates = new TreeSet<String>();
+
+            for (String finalState1: oneFinal){
+                 for (String finalState2: twoAll){
+                   allFinalStates.add(finalState1+finalState2);
+                    
+                }
+            }
+            for (String finalState1: twoFinal){
+                 for (String finalState2: oneAll){
+                   allFinalStates.add(finalState1+finalState2);
+                    
+                }
+            }
+            unionDFA.add(String.valueOf(allFinalStates.size()));
+            String unionStates = "";
+            for(Object n: allFinalStates){
+                if (unionStates == "") {
+                    unionStates=String.valueOf(n);
+                }else{
+                    unionStates = unionStates+ " "+  String.valueOf(n);
+                }
+            }
+            unionDFA.add(String.valueOf(unionStates));
+            
+            
+
+        }catch(Exception e){
+            System.out.println("Check the files provided are correct.");
+            System.exit(0);
+
+        }
+        return unionDFA;
+        
+    }
+
 
     private static ArrayList<String> makeComplementation(String filename){
         ArrayList<String> outputArray = new ArrayList<String>();
@@ -82,7 +181,11 @@ public class Symmetric {
                     outputArray.add(String.valueOf(allStatesSet.size()));
                     String complementStates = "";
                     for(String n: allStatesSet){
-                        complementStates = n+" ";
+                        if (complementStates == "") {
+                            complementStates=n;
+                        }else{
+                            complementStates = complementStates+ " "+  n;
+                        }
                     }
                     outputArray.add(complementStates);
                     
@@ -94,7 +197,8 @@ public class Symmetric {
 
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Cannot find specified file.");
+            System.exit(0);
         }
         return outputArray;
     }
@@ -105,6 +209,7 @@ public class Symmetric {
 
         //System.out.println(firstFile+"\n"+secondFile);
         try{
+            intersectionDFA.add("0");
             int numStates = Integer.valueOf(firstFile.get(1)) * Integer.valueOf(secondFile.get(1));
             // Number of states:
             intersectionDFA.add(String.valueOf(numStates));
@@ -161,13 +266,15 @@ public class Symmetric {
                     
                 }
             }
-
+            intersectionDFA.set(0, String.valueOf(intersectionDFA.size()));
             intersectionDFA.add(allFinalStates);
+
             
             
 
         }catch(Exception e){
-            System.out.println("Check the file provided is correct");
+            System.out.println("Check the files provided are correct.");
+            System.exit(0);
 
         }
         return intersectionDFA;
@@ -208,7 +315,8 @@ public class Symmetric {
 
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Cannot find specified file.");
+            System.exit(0);
         }
         return fileInArray;
     }
