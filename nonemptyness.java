@@ -17,18 +17,50 @@ public class nonemptyness {
 
         ArrayList<String> firstFile = new ArrayList<String>();
         firstFile = readLines(args[0]);
-        String outcome = makeIntersection(firstFile);
+        String outcome = empty(firstFile);
 
         printOutcome(args[0], outcome);
 
 	}
 
-    private static String makeIntersection(ArrayList<String> theDFA){ 
+    private static String empty(ArrayList<String> theDFA){ 
         String outcome = "language empty";
         //System.out.println(firstFile+"\n"+secondFile);
         try{
-          
+            HashMap<String, String[]> stateTransitions = new HashMap<String, String[]>();
 
+            int linesNum = Integer.valueOf(theDFA.get(0));
+            String[] states = theDFA.get(2).split("\\s+");
+
+            for (int i = 0; i < Integer.valueOf(theDFA.get(1)); i++ ) {
+                stateTransitions.put(states[i],theDFA.get(i+5).split("\\s+"));         
+            }
+            //System.out.println(theDFA.get(linesNum-2));
+            HashMap<String, String[]> queue = new HashMap<String, String[]>();
+            queue.put(theDFA.get(linesNum-2),theDFA.get(linesNum-2).split(""));
+
+            //String[] queue = [theDFA.get(linesNum-2), [theDFA.get(linesNum-2)]];
+            while (true){
+                String vertex = queue
+
+            }
+
+
+
+
+// def bfs_paths(stateTransitions, start, accept):
+//     queue = [(start, [start])]
+//     while queue:
+//         (vertex, path) = queue.pop(0)
+
+//         for next in stateTransitions[vertex] - set(path):
+//             if next == accept:
+//                 print(path + [next])
+//                 return
+//             else:
+//                 queue.append((next, path + [next]))
+
+// print(bfs_paths(graph, 'Ax', 'Az')) # ['A', 'C', 'F']
         }catch(Exception e){
             System.out.println("Check the file provided is correct");
 
