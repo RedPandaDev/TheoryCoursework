@@ -3,19 +3,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
  
-public class nonemptyness
+public class BreadthFirstSearchExampleNeighbourList
 { 
  
     private Queue<Node> queue;
     static ArrayList<Node> nodes=new ArrayList<Node>();
-    
     static class Node
     {
-        int data;
+        String data;
         boolean visited;
         List<Node> neighbours;
  
-        Node(int data)
+        Node(String data)
         {
             this.data=data;
             this.neighbours=new ArrayList<>();
@@ -33,7 +32,7 @@ public class nonemptyness
         }
     }
  
-    public void nonemptyness()
+    public BreadthFirstSearchExampleNeighbourList()
     {
         queue = new LinkedList<Node>();
     }
@@ -64,27 +63,25 @@ public class nonemptyness
     public static void main(String arg[])
     {
  
-        Node node40 =new Node(40);
-        Node node10 =new Node(10);
-        Node node20 =new Node(20);
-        Node node30 =new Node(30);
-        Node node60 =new Node(60);
-        Node node50 =new Node(50);
-        Node node70 =new Node(70);
+        Node nodeAx =new Node("Ax");
+        Node nodeAy =new Node("Ay");
+        Node nodeAz =new Node("Az");
+        Node nodeBx =new Node("Bx");
+        Node nodeBy =new Node("By");
+        Node nodeBz =new Node("Bz");
  
-        node40.addneighbours(node10);
-        node40.addneighbours(node20);
-        node10.addneighbours(node30);
-        node20.addneighbours(node10);
-        node20.addneighbours(node30);
-        node20.addneighbours(node60);
-        node20.addneighbours(node50);
-        node30.addneighbours(node60);
-        node60.addneighbours(node70);
-        node50.addneighbours(node70);
+        nodeBx.addneighbours(nodeAx);
+        nodeBx.addneighbours(nodeAy);
+        nodeAx.addneighbours(nodeAz);
+        nodeAy.addneighbours(nodeAx);
+        nodeAy.addneighbours(nodeAz);
+        nodeAy.addneighbours(nodeBz);
+        nodeAy.addneighbours(nodeBy);
+        nodeAz.addneighbours(nodeBz);
+
         System.out.println("The BFS traversal of the graph is ");
-        nonemptyness bfsExample = new nonemptyness();
-        bfsExample.bfs(node40);
+        BreadthFirstSearchExampleNeighbourList bfsExample = new BreadthFirstSearchExampleNeighbourList();
+        bfsExample.bfs(nodeAx);
  
     }
 }
