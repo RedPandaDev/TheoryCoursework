@@ -1,13 +1,12 @@
 # sample graph implemented as a dictionary
-graph = {'A': ['B', 'C', 'E'],
-         'B': ['A','D', 'E'],
-         'C': ['A', 'F', 'G'],
-         'D': ['B'],
-         'E': ['A', 'B','D'],
-         'F': ['C'],
-         'G': ['C']}
+graph = {'Ax': {'Bz':"a", 'Ay':"b"},
+         'Ay': {'Bz':"a", 'Az':"b"},
+         'Az': {'By':"a", 'Az':"b"},
+         'Bx': {'Az':"a", 'By':"b"},
+         'By': {'Az':"a", 'Bz':"b"},
+         'Bz': {'Ay':"a", 'Bz':"b"}}
 
-
+transitions = []
 # visits all the nodes of a graph (connected component) using BFS
 def bfs_connected_component(graph, start):
     # keep track of all visited nodes
@@ -26,19 +25,23 @@ def bfs_connected_component(graph, start):
         node = queue.pop(0)
         explored.append(node)
         neighbours = graph[node]
+        #print(neighbours)
 
         # add neighbours of node to queue
         for neighbour in neighbours:
             if neighbour not in visited:
                 queue.append(neighbour)
                 visited.append(neighbour)
+                transitions.append(graph[node][neighbour])
 
                 levels[neighbour]= levels[node]+1
+                if (neighbour== "Ay"):
+                    return explored
+
                 # print(neighbour, ">>", levels[neighbour])
 
-    print(levels)
 
+    
     return explored
 
-ans = bfs_connected_component(graph,'A') # returns ['A', 'B', 'C', 'E', 'D', 'F', 'G']
-print(ans)
+bfs_connected_component(graph,'Ax') # returns ['A', 'B', 'C', 'E', 'D', 'F', 'G']
