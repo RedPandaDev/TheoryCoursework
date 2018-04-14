@@ -6,5 +6,5 @@ y x
 z x
 z z
 x
-1
-x
+2
+x y
