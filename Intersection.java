@@ -81,7 +81,13 @@ public class Intersection {
             String allFinalStates = "";
             for (String finalState1: oneFinal){
                  for (String finalState2: twoFinal){
-                    allFinalStates = allFinalStates + finalState1+finalState2+" ";
+                    if (allFinalStates == "") {
+                        allFinalStates = finalState1 + finalState2;
+                        
+                    }
+                    else{
+                        allFinalStates = allFinalStates +" "+ finalState1 + finalState2;
+                    }
                     
                 }
             }
