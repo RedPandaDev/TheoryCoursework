@@ -19,7 +19,7 @@ def bfs(graph_to_search, start, end):
 
         # Gets the last node in the path
         vertex = path[-1]
-
+        print(queue)
         # Checks if we got to the end
         if vertex == end:
             return path
@@ -33,6 +33,7 @@ def bfs(graph_to_search, start, end):
 
             # Mark the vertex as visited
             visited.add(vertex)
+            
 
 
 print (bfs(graph, 1, 13))

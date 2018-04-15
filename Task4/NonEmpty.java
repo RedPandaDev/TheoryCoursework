@@ -20,10 +20,19 @@ public class NonEmpty
 
         String[] states = file.get(2).split("\\s+");
         for (int i =0; i< Integer.valueOf(file.get(1)); i++) {
-        	input.put(states[i],file.get(i+3).split("\\s+"));
+        	input.put(states[i],file.get(i+4).split("\\s+"));
         }
-        System.out.println(Collections.singletonList(input));
-        System.out.println(Arrays.asList(input));
+        int numLines = Integer.valueOf(file.get(0));
+        search(input, file.get(numLines-2), file.get(numLines).split("\\s+"));
+
+	}
+
+	private static void search(HashMap<String,String[]> graph, String startState, String[] endState){
+		ArrayList<String> queue = new ArrayList<String>();
+		String[] items = graph.get(startState);
+		System.out.println(Arrays.toString(items));
+		queue.add(startState);
+
 	}
 
 
