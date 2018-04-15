@@ -34,30 +34,56 @@ public class NonEmpty
 		ArrayList<String> endStates = new ArrayList<String>(Arrays.asList(endState));
 
 		String[] items = graph.get(startState);
-		System.out.println(Arrays.toString(items));
 		ArrayList<String> temp = new ArrayList<String>();
 		temp.add(startState);
 		queue.add(temp);
 		Boolean first = true;
 
 		while (queue.size() != 0){
-			path.add(queue.get(0));
+			path = queue.get(0);
 			queue.remove(0);
+
 			String vertex = path.get(path.size() - 1);
 			if (first == false) {
 				if (endStates.contains(vertex)){
-					//System.out.println(Arrays.toString(path));
+					for (String step : path) {
+					    System.out.print(step+" ");
+					}
 					return path;
 
 				}
 				else if (!visited.contains(vertex)) {
 					ArrayList<String> newPath = new ArrayList<String>();
-					newPath = path;
+					for (String step : path) {
+					    newPath.add(step);
+					}
 					newPath.add(graph.get(vertex)[0]);
+
+					queue.add(newPath);
+					for (String step : path) {
+					    newPath.add(step);
+					}
+					newPath.add(graph.get(vertex)[1]);
 					queue.add(newPath);
 					visited.add(vertex);
 				}
 
+			}
+			else{
+				ArrayList<String> newPath = new ArrayList<String>();
+				for (String step : path) {
+					    newPath.add(step);
+
+					}
+				newPath.add(graph.get(vertex)[0]);
+				queue.add(newPath);
+				for (String step : path) {
+					    newPath.add(step);
+					}
+				newPath.add(graph.get(vertex)[1]);
+				queue.add(newPath);
+				
+				first= false;
 			}
 
 
