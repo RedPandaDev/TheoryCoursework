@@ -20,19 +20,51 @@ public class NonEmpty
 
         String[] states = file.get(2).split("\\s+");
         for (int i =0; i< Integer.valueOf(file.get(1)); i++) {
-        	input.put(states[i],file.get(i+4).split("\\s+"));
+        	input.put(states[i],file.get(i+5).split("\\s+"));
         }
         int numLines = Integer.valueOf(file.get(0));
         search(input, file.get(numLines-2), file.get(numLines).split("\\s+"));
 
 	}
 
-	private static void search(HashMap<String,String[]> graph, String startState, String[] endState){
-		ArrayList<String> queue = new ArrayList<String>();
+	private static ArrayList<String> search(HashMap<String,String[]> graph, String startState, String[] endState){
+		ArrayList<ArrayList<String>> queue = new ArrayList<ArrayList<String>>();
+		ArrayList<String> visited = new ArrayList<String>();
+		ArrayList<String> path = new ArrayList<String>();
+		ArrayList<String> endStates = new ArrayList<String>(Arrays.asList(endState));
+
 		String[] items = graph.get(startState);
 		System.out.println(Arrays.toString(items));
-		queue.add(startState);
+		ArrayList<String> temp = new ArrayList<String>();
+		temp.add(startState);
+		queue.add(temp);
+		Boolean first = true;
 
+		while (queue.size() != 0){
+			path.add(queue.get(0));
+			queue.remove(0);
+			String vertex = path.get(path.size() - 1);
+			if (first == false) {
+				if (endStates.contains(vertex)){
+					//System.out.println(Arrays.toString(path));
+					return path;
+
+				}
+				else if (!visited.contains(vertex)) {
+					ArrayList<String> newPath = new ArrayList<String>();
+					newPath = path;
+					newPath.add(graph.get(vertex)[0]);
+					queue.add(newPath);
+					visited.add(vertex);
+				}
+
+			}
+
+
+
+		}
+
+		return null;
 	}
 
 

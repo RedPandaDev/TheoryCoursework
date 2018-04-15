@@ -1,11 +1,8 @@
 graph = {
-    1: [2, 3, 4],
-    2: [5, 6],
-    3: [10],
-    4: [7, 8],
-    5: [9, 10],
-    7: [11, 12],
-    11: [13]
+    "Ax": ["Ay", "Az"],
+    "Ay": ["Ax", "Az"],
+    "Az": ["Bx", "Az"],
+    "Bx": ["By", "Bz"]
 }
 
 
@@ -19,7 +16,7 @@ def bfs(graph_to_search, start, end):
 
         # Gets the last node in the path
         vertex = path[-1]
-        print(queue)
+        
         # Checks if we got to the end
         if vertex == end:
             return path
@@ -27,13 +24,16 @@ def bfs(graph_to_search, start, end):
         elif vertex not in visited:
             # enumerate all adjacent nodes, construct a new path and push it into the queue
             for current_neighbour in graph_to_search.get(vertex, []):
+                print("vertex", vertex, "neigh", current_neighbour)
+                print(path)
                 new_path = list(path)
                 new_path.append(current_neighbour)
                 queue.append(new_path)
+                print(queue)
 
             # Mark the vertex as visited
             visited.add(vertex)
-            
 
 
-print (bfs(graph, 1, 13))
+
+print (bfs(graph, "Ax", "Bx"))
