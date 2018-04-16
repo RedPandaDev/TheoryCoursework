@@ -37,11 +37,14 @@ public class NonEmpty
 		ArrayList<String> temp = new ArrayList<String>();
 		temp.add(startState);
 		queue.add(temp);
+
 		Boolean first = true;
 
 		while (queue.size() != 0){
 			path = queue.get(0);
 			queue.remove(0);
+			System.out.println(queue);
+
 
 			String vertex = path.get(path.size() - 1);
 			if (first == false) {
@@ -55,16 +58,17 @@ public class NonEmpty
 				else if (!visited.contains(vertex)) {
 					ArrayList<String> newPath = new ArrayList<String>();
 					for (String step : path) {
-					    newPath.add(step);
-					}
-					newPath.add(graph.get(vertex)[0]);
+						    newPath.add(step);
 
+						}
+					newPath.add(graph.get(vertex)[0]);
 					queue.add(newPath);
+					ArrayList<String> newPath2 = new ArrayList<String>();
 					for (String step : path) {
-					    newPath.add(step);
-					}
-					newPath.add(graph.get(vertex)[1]);
-					queue.add(newPath);
+						    newPath2.add(step);
+						}
+					newPath2.add(graph.get(vertex)[1]);
+					queue.add(newPath2);
 					visited.add(vertex);
 				}
 
@@ -77,11 +81,12 @@ public class NonEmpty
 					}
 				newPath.add(graph.get(vertex)[0]);
 				queue.add(newPath);
+				ArrayList<String> newPath2 = new ArrayList<String>();
 				for (String step : path) {
-					    newPath.add(step);
+					    newPath2.add(step);
 					}
-				newPath.add(graph.get(vertex)[1]);
-				queue.add(newPath);
+				newPath2.add(graph.get(vertex)[1]);
+				queue.add(newPath2);
 				
 				first= false;
 			}
