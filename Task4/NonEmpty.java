@@ -23,7 +23,30 @@ public class NonEmpty
         	input.put(states[i],file.get(i+5).split("\\s+"));
         }
         int numLines = Integer.valueOf(file.get(0));
-        search(input, file.get(numLines-2), file.get(numLines).split("\\s+"));
+
+        ArrayList<String> path = new ArrayList<String>();
+        path = search(input, file.get(numLines-2), file.get(numLines).split("\\s+"));
+        if (path == null) {
+        	System.out.println("Language "+args[0]+" empty.");
+        	
+        }else{
+        	String lastStep = "";
+        	String transitions = "";
+        	int start = 0;
+			for (String step : path) {
+				if (start != 0) {
+				    if (input.get(lastStep)[0]==step) {
+				    	transitions = transitions + "a";
+				    }
+				    else if (input.get(lastStep)[1]==step) {
+				    	transitions = transitions + "b";
+				    }
+				}
+			    lastStep = step;
+			    start = 1;
+			}
+			System.out.println("Language "+args[0]+" non-empty - "+transitions+" accepted");
+		}
 
 	}
 
@@ -43,15 +66,10 @@ public class NonEmpty
 		while (queue.size() != 0){
 			path = queue.get(0);
 			queue.remove(0);
-			System.out.println(queue);
-
-
 			String vertex = path.get(path.size() - 1);
 			if (first == false) {
 				if (endStates.contains(vertex)){
-					for (String step : path) {
-					    System.out.print(step+" ");
-					}
+
 					return path;
 
 				}
