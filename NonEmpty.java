@@ -86,7 +86,7 @@ public class NonEmpty
 						    newPath2.add(step);
 						}
 					newPath2.add(graph.get(vertex)[1]);
-					queue.add(newPath2);
+					queue.add(newPath2);java Symmetric "D1.txt" "D2.txt";
 					visited.add(vertex);
 				}
 
