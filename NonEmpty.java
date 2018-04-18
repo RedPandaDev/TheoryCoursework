@@ -11,7 +11,7 @@ public class NonEmpty
         // Makes sure user specified text file to be used
 		if (args.length != 1) 
         {
-        	System.out.println("ERROR: Please specify TWO TEXT files to be used.");
+        	System.out.println("ERROR: Please specify TEXT file to be used.");
         	System.out.println("E.g. type in: java NonEmpty \"D1.txt\"");
             System.exit(0);
         }
@@ -86,7 +86,7 @@ public class NonEmpty
 						    newPath2.add(step);
 						}
 					newPath2.add(graph.get(vertex)[1]);
-					queue.add(newPath2);java Symmetric "D1.txt" "D2.txt";
+					queue.add(newPath2);
 					visited.add(vertex);
 				}
 
