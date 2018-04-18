@@ -104,7 +104,7 @@ public class Intersection {
     }
 
     private static void printArray (String filename1, String filename2, ArrayList<String> intersect){
-        System.out.println("DFA that recognises L("+filename1+") \u2229 L("+filename2+"):");
+        System.out.println("DFA that recognises L("+filename1+") intersect L("+filename2+"):");
         for(String arrayLine: intersect){
             System.out.println(arrayLine);
         }

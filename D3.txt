@@ -1,10 +1,17 @@
-3
-a b c d e f g i j k l m n o p
+10
+a b c d e f g i j k
 2
 a b
-z y
-z z
-y z
-x
-8
-a c e g j l n p
+b c
+c d
+d e
+f g
+i a
+j k
+d k
+k f
+a c
+f g
+a
+1
+k

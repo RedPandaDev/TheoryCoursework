@@ -45,7 +45,7 @@ public class NonEmpty
 			    lastStep = step;
 			    start = 1;
 			}
-			System.out.println("Language "+args[0]+" non-empty - "+transitions+" accepted");
+			System.out.println("Language non-empty - "+transitions+" accepted");
 		}
 
 	}
